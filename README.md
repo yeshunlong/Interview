@@ -43,7 +43,7 @@
   * [X] 创造型设计模式
   * [X] 结构型设计模式
   * [X] 行为型设计模式
-* [X] [操作系统](OperatingSystems.md)
+* [X] [操作系统](OperatingSystem.md)
   * [X] 进程与线程
   * [X] 内存管理
   * [X] 死锁
