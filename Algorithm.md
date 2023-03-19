@@ -312,9 +312,9 @@ Leetcode 713、524、167
 
 ## 第三周
 
-| Algorithm | Graph | Bipartite Graph | Flood Fill | MST  | Shortest Path |
-| --------- | ----- | --------------- | ---------- | ---- | ------------- |
-| Prob.ID   | 797   | 785             | 130        | 1584 | 1514          |
+| Algorithm | Graph | Bipartite Graph                     | Flood Fill | MST                       | Shortest Path                      |
+| --------- | ----- | ----------------------------------- | ---------- | ------------------------- | ---------------------------------- |
+| Prob.ID   | 797   | 785[[图解](images/BipartiteGraph.png)] | 130        | 1584[[图解](images/MST.png)] | 1514[[图解](images/ShortestPath.png)] |
 
 ## 第四周
 
