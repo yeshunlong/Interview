@@ -16,12 +16,12 @@ Spring是个包含一系列功能的合集，如快速开发的Spring Boot，支
 
 ## Bean的生命周期
 
-1. Spring对Bean进行实例化
-2. Spring将值和Bean的引用注入进Bean对应的属性中
-3. 容器通过Aware接口把容器信息注入Bean
-4. BeanPostProcessor。进行进一步的构造，会在InitialzationBean前后执行对应方法，当前正在初始化的bean对象会被传递进来，我们就可以对这个bean作任何处理
+1. Spring对Bean进行实例化。
+2. Spring将值和Bean的引用注入进Bean对应的属性中。
+3. 容器通过Aware接口把容器信息注入Bean。
+4. BeanPostProcessor。进行进一步的构造，会在InitialzationBean前后执行对应方法，当前正在初始化的bean对象会被传递进来，我们就可以对这个bean作任何处理。
 5. InitializingBean。这一阶段也可以在bean正式构造完成前增加我们自定义的逻辑，但它与前置处理不同，由于该函数并不会把当前bean对象传进来，因此在这一步没办法处理对象本身，只能增加一些额外的逻辑。
-6. DisposableBean。Bean将一直驻留在应用上下文中给应用使用，直到应用上下文被销毁，如果Bean实现了接口，Spring将调用它的destory方法
+6. DisposableBean。Bean将一直驻留在应用上下文中给应用使用，直到应用上下文被销毁，如果Bean实现了接口，Spring将调用它的destory方法。
 
 ## Bean的作用域
 
@@ -35,12 +35,12 @@ Spring是个包含一系列功能的合集，如快速开发的Spring Boot，支
 
 * 控制反转
 
-由 Spring IOC 容器来负责对象的生命周期和对象之间的关系。IoC 容器控制对象的创建，依赖对象的获取被反转了没有 IoC 的时候我们都是在自己对象中主动去创建被依赖的对象，这是正转。但是有了 IoC 后，所依赖的对象直接由 IoC 容器创建后注入到被注入的对象中，依赖的对象由原来的主动获取变成被动接受，所以是反转
+由 Spring IOC 容器来负责对象的生命周期和对象之间的关系。IoC 容器控制对象的创建，依赖对象的获取被反转了没有 IoC 的时候我们都是在自己对象中主动去创建被依赖的对象，这是正转。但是有了 IoC 后，所依赖的对象直接由 IoC 容器创建后注入到被注入的对象中，依赖的对象由原来的主动获取变成被动接受，所以是反转。
 
 * 依赖注入
 
-组件之间依赖关系由容器在运行期决定，由容器动态的将某个依赖关系注入到组件之中，提升组件重用的频率、灵活、可扩展
-通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现
+组件之间依赖关系由容器在运行期决定，由容器动态的将某个依赖关系注入到组件之中，提升组件重用的频率、灵活、可扩展。
+通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。
 
 注入方式：构造器注入、setter 方法注入、接口方式注入
 
@@ -56,7 +56,7 @@ Spring是个包含一系列功能的合集，如快速开发的Spring Boot，支
 
 ### Spring AOP使用的动态代理原理
 
-jdk反射：通过反射机制生成代理类的字节码文件，调用具体方法前调用InvokeHandler来处理cglib工具：利用asm开源包，对代理对象类的class文件加载进来，通过修改其字节码生成子类来处理
+jdk反射：通过反射机制生成代理类的字节码文件，调用具体方法前调用InvokeHandler来处理cglib工具：利用asm开源包，对代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。
 
 1. 如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP
 2. 如果目标对象实现了接口，可以强制使用CGLIB实现AOP
@@ -64,7 +64,7 @@ jdk反射：通过反射机制生成代理类的字节码文件，调用具体�
 
 # Spring面试问题
 
-## 区分 BeanFactory 和 ApplicationContext？
+## 区分 BeanFactory 和 ApplicationContext
 
 | BeanFactory                | ApplicationContext       |
 | -------------------------- | ------------------------ |
@@ -94,7 +94,7 @@ ApplicationContext的优缺点：
 | 任意修改都会创建一个新实例 | 任意修改不会创建一个新实例 |
 | 适用于设置很多属性         | 适用于设置少量属性         |
 
-## spring 提供了哪些配置方式？
+## spring 提供了哪些配置方式
 
 * 基于 xml 配置
 
@@ -142,15 +142,7 @@ public class StudentConfig {
 * prototype : 每次请求都会创建一个新的 bean 实例。
 * request : 每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
 * session : ：在一个HTTP Session中，一个Bean定义对应一个实例。该作用域仅在基于web的Spring ApplicationContext情形下有效。
-* global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话
-
-## 如何理解IoC和DI
-
-IOC就是控制反转，通俗的说就是我们不用自己创建实例对象，这些都交给Spring的bean工厂帮我们创建管理。这也是Spring的核心思想，通过面向接口编程的方式来是实现对业务组件的动态依赖。这就意味着IOC是Spring针对解决程序耦合而存在的。在实际应用中，Spring通过配置文件（xml或者properties）指定需要实例化的java类（类名的完整字符串），包括这些java类的一组初始化值，通过加载读取配置文件，用Spring提供的方法（getBean()）就可以获取到我们想要的根据指定配置进行初始化的实例对象。
-
-* 优点：IOC或依赖注入减少了应用程序的代码量。它使得应用程序的测试很简单，因为在单元测试中不再需要单例或JNDI查找机制。简单的实现以及较少的干扰机制使得松耦合得以实现。IOC容器支持勤性单例及延迟加载服务。
-
-**DI：DI—Dependency** Injection，即“依赖注入”：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。
+* global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话。
 
 ## 将一个类声明为Spring的 bean 的注解有哪些
 
@@ -180,7 +172,7 @@ Bean的生命周期是由容器来管理的。主要在创建和销毁两个时�
 
 ### 创建过程
 
-1，实例化bean对象，以及设置bean属性；
+1，实例化bean对象，以及设置bean属性。
 2，如果通过Aware接口声明了依赖关系，则会注入Bean对容器基础设施层面的依赖，Aware接口是为了感知到自身的一些属性。容器管理的Bean一般不需要知道容器的状态和直接使用容器。但是在某些情况下是需要在Bean中对IOC容器进行操作的。这时候需要在bean中设置对容器的感知。SpringIOC容器也提供了该功能，它是通过特定的Aware接口来完成的。 比如BeanNameAware接口，可以知道自己在容器中的名字。 如果这个Bean已经实现了BeanFactoryAware接口，可以用这个方式来获取其它Bean。 （如果Bean实现了BeanNameAware接口，调用setBeanName()方法，传入Bean的名字。 如果Bean实现了BeanClassLoaderAware接口，调用setBeanClassLoader()方法，传入ClassLoader对象的实例。 如果Bean实现了BeanFactoryAware接口，调用setBeanFactory()方法，传入BeanFactory对象的实例。）
 3，紧接着会调用BeanPostProcess的前置初始化方法postProcessBeforeInitialization，主要作用是在Spring完成实例化之后，初始化之前，对Spring容器实例化的Bean添加自定义的处理逻辑。有点类似于AOP。 4，如果实现了BeanFactoryPostProcessor接口的afterPropertiesSet方法，做一些属性被设定后的自定义的事情。 5，调用Bean自身定义的init方法，去做一些初始化相关的工作。 6，调用BeanPostProcess的后置初始化方法，postProcessAfterInitialization去做一些bean初始化之后的自定义工作。 7，完成以上创建之后就可以在应用里使用这个Bean了。
 
@@ -244,29 +236,35 @@ Spring 容器能够自动装配 bean。也就是说，可以通过检查 BeanFac
 
 ## Spring中出现同名bean怎么办
 
-* 同一个配置文件内同名的Bean，以最上面定义的为准
-* 不同配置文件中存在同名Bean，后解析的配置文件会覆盖先解析的配置文件
-* 同文件中ComponentScan和@Bean出现同名Bean。同文件下@Bean的会生效，@ComponentScan扫描进来不会生效。通过@ComponentScan扫描进来的优先级是最低的，原因就是它扫描进来的Bean定义是最先被注册的~
+* 同一个配置文件内同名的Bean，以最上面定义的为准。
+* 不同配置文件中存在同名Bean，后解析的配置文件会覆盖先解析的配置文件。
+* 同文件中ComponentScan和@Bean出现同名Bean。同文件下@Bean的会生效，@ComponentScan扫描进来不会生效。通过@ComponentScan扫描进来的优先级是最低的，原因就是它扫描进来的Bean定义是最先被注册的。
 
 ## Spring 怎么解决循环依赖问题
 
-spring对循环依赖的处理有三种情况： ①构造器的循环依赖：这种依赖spring是处理不了的，直 接抛出BeanCurrentlylnCreationException异常。 ②单例模式下的setter循环依赖：通过“三级缓存”处理循环依赖。 ③非单例循环依赖：无法处理。
+spring对循环依赖的处理有三种情况： 
+
+* 构造器的循环依赖：这种依赖spring是处理不了的，直 接抛出BeanCurrentlylnCreationException异常。
+* 单例模式下的setter循环依赖：通过“三级缓存”处理循环依赖。
+* 非单例循环依赖：无法处理。
 
 下面分析单例模式下的setter循环依赖如何解决
 
-Spring的单例对象的初始化主要分为三步： [![](https://camo.githubusercontent.com/53efc926f02b47165ce21f20b3827372e7e7d877b38c73b5408a980663442293/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343736313431333334315f31322e706e67)](https://camo.githubusercontent.com/53efc926f02b47165ce21f20b3827372e7e7d877b38c73b5408a980663442293/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343736313431333334315f31322e706e67)
+[![img](https://camo.githubusercontent.com/53efc926f02b47165ce21f20b3827372e7e7d877b38c73b5408a980663442293/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343736313431333334315f31322e706e67)](https://camo.githubusercontent.com/53efc926f02b47165ce21f20b3827372e7e7d877b38c73b5408a980663442293/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343736313431333334315f31322e706e67)
 
-* createBeanInstance：实例化，其实也就是调用对象的构造方法实例化对象
-* populateBean：填充属性，这一步主要是多bean的依赖属性进行填充
+Spring的单例对象的初始化主要分为三步：
+
+* createBeanInstance：实例化，其实也就是调用对象的构造方法实例化对象。
+* populateBean：填充属性，这一步主要是多bean的依赖属性进行填充。
 * initializeBean：调用spring xml中的init 方法。
 
 从上面讲述的单例bean初始化步骤我们可以知道，循环依赖主要发生在第一、第二部。也就是构造器循环依赖和field循环依赖。
 
 [![](https://camo.githubusercontent.com/5cf0aeb4b8eac9eae7313f5449d8a4014082e58df39ddc5ae8e6bd894d9c93b3/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343735383330393631365f31302e706e67)](https://camo.githubusercontent.com/5cf0aeb4b8eac9eae7313f5449d8a4014082e58df39ddc5ae8e6bd894d9c93b3/687474703a2f2f626c6f672d696d672e636f6f6c73656e2e636e2f696d672f313538343735383330393631365f31302e706e67)
 
-举例：A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象”这种循环依赖的情况。A首先完成了
+举例：A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象”这种循环依赖的情况。
 
-初始化的第一步（createBeanINstance实例化），并且将自己提前曝光到singletonFactories中。
+A首先完成了初始化的第一步（createBeanINstance实例化），并且将自己提前曝光到singletonFactories中。
 
 此时进行初始化的第二步，发现自己依赖对象B，此时就尝试去get(B)，发现B还没有被create，所以走create流程，B在初始化第一步的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，尝试二级缓存earlySingletonObjects（也没有），尝试三级缓存singletonFactories，由于A通过ObjectFactory将自己提前曝光了，所以B能够通过
 
@@ -276,7 +274,7 @@ ObjectFactory.getObject拿到A对象(虽然A还没有初始化完全，但是总
 
 ## Spring 中的单例 bean 的线程安全问题
 
-当多个用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑（成员方法），此时就要注意了，如果该处理逻辑中有对单例状态的修改（体现为该单例的成员属性），则必须考虑线程同步问题。 **线程安全问题都是由全局变量及静态变量引起的。** 若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全.
+当多个用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑（成员方法），此时就要注意了，如果该处理逻辑中有对单例状态的修改（体现为该单例的成员属性），则必须考虑线程同步问题。 **线程安全问题都是由全局变量及静态变量引起的。** 若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全。
 
 **无状态bean和有状态bean**
 
@@ -289,8 +287,8 @@ ObjectFactory.getObject拿到A对象(虽然A还没有初始化完全，但是总
 
 实现 AOP 的技术，主要分为两大类：
 
-* 静态代理 - 指使用 AOP 框架提供的命令进行编译，从而在编译阶段就可生成 AOP 代理类，因此也称为编译时增强；
-  * 编译时编织（特殊编译器实现）
+* 静态代理 - 指使用 AOP 框架提供的命令进行编译，从而在编译阶段就可生成 AOP 代理类，因此也称为编译时增强。
+  * 编译时编织（特殊编译器实现）。
   * 类加载时编织（特殊的类加载器实现）。
 * 动态代理 - 在运行时在内存中“临时”生成 AOP 动态代理类，因此也被称为运行时增强。
   * `JDK` 动态代理：通过反射来接收被代理的类，并且要求被代理的类必须实现一个接口 。JDK 动态代理的核心是 InvocationHandler 接口和 Proxy 类 。
@@ -380,11 +378,11 @@ Spring MVC 对各个组件的职责划分的比较清晰。`DispatcherServlet` �
 
 `@Controller` 注解标记一个类为 Spring Web MVC **控制器** Controller。Spring MVC 会将扫描到该注解的类，然后扫描这个类下面带有 `@RequestMapping` 注解的方法，根据注解信息，为这个方法生成一个对应的**处理器**对象，在上面的 HandlerMapping 和 HandlerAdapter组件中讲到过。
 
-当然，除了添加 `@Controller` 注解这种方式以外，你还可以实现 Spring MVC 提供的 `Controller` 或者 `HttpRequestHandler` 接口，对应的实现类也会被作为一个**处理器**对象
+当然，除了添加 `@Controller` 注解这种方式以外，你还可以实现 Spring MVC 提供的 `Controller` 或者 `HttpRequestHandler` 接口，对应的实现类也会被作为一个**处理器**对象。
 
 ## @RequestMapping 注解有什么用
 
-`@RequestMapping` 注解，在上面已经讲过了，配置**处理器**的 HTTP 请求方法，URI等信息，这样才能将请求和方法进行映射。这个注解可以作用于类上面，也可以作用于方法上面，在类上面一般是配置这个**控制器**的 URI 前缀
+`@RequestMapping` 注解，在上面已经讲过了，配置**处理器**的 HTTP 请求方法，URI等信息，这样才能将请求和方法进行映射。这个注解可以作用于类上面，也可以作用于方法上面，在类上面一般是配置这个**控制器**的 URI 前缀。
 
 ## @RestController 和 @Controller 有什么区别
 
@@ -392,12 +390,12 @@ Spring MVC 对各个组件的职责划分的比较清晰。`DispatcherServlet` �
 
 ## @RequestMapping 和 @GetMapping 注解的不同之处在哪里
 
-1. `@RequestMapping`：可注解在类和方法上；`@GetMapping` 仅可注册在方法上
+1. `@RequestMapping`：可注解在类和方法上；`@GetMapping` 仅可注册在方法上。
 2. `@RequestMapping`：可进行 GET、POST、PUT、DELETE 等请求方法；`@GetMapping` 是 `@RequestMapping` 的 GET 请求方法的特例，目的是为了提高清晰度。
 
 ## @RequestParam 和 @PathVariable 两个注解的区别
 
-两个注解都用于方法参数，获取参数值的方式不同，`@RequestParam` 注解的参数从请求携带的参数中获取，而 `@PathVariable` 注解从请求的 URI 中获取
+两个注解都用于方法参数，获取参数值的方式不同，`@RequestParam` 注解的参数从请求携带的参数中获取，而 `@PathVariable` 注解从请求的 URI 中获取。
 
 ## 返回 JSON 格式使用什么注解
 
@@ -432,7 +430,7 @@ Spring的处理程序映射机制包括处理程序拦截器，当你希望将�
 
 ## REST 代表着什么
 
-REST 代表着抽象状态转移，它是根据 HTTP 协议从客户端发送数据到服务端，例如：服务端的一本书可以以 XML 或 JSON 格式传递到客户端
+REST 代表着抽象状态转移，它是根据 HTTP 协议从客户端发送数据到服务端，例如：服务端的一本书可以以 XML 或 JSON 格式传递到客户端。
 
 可以看看 [REST API design and development](http://bit.ly/2zIGzWK) ，知乎上的 [《怎样用通俗的语言解释 REST，以及 RESTful？》](https://www.zhihu.com/question/28557115)了解。
 
@@ -440,24 +438,22 @@ REST 代表着抽象状态转移，它是根据 HTTP 协议从客户端发送数
 
 REST 接口是通过 HTTP 方法完成操作
 
-* 一些 HTTP 操作是安全的，如 GET 和 HEAD ，它不能在服务端修改资源
-* 换句话说，PUT、POST 和 DELETE 是不安全的，因为他们能修改服务端的资源
+* 一些 HTTP 操作是安全的，如 GET 和 HEAD ，它不能在服务端修改资源。
+* 换句话说，PUT、POST 和 DELETE 是不安全的，因为他们能修改服务端的资源。
 
-所以，是否安全的界限，在于**是否修改**服务端的资源
+所以，是否安全的界限，在于**是否修改**服务端的资源。
 
 ## REST API 是无状态的吗
 
- **是的** ，REST API 应该是无状态的，因为它是基于 HTTP 的，它也是无状态的
+ **是的** ，REST API 应该是无状态的，因为它是基于 HTTP 的，它也是无状态的。
 
-REST API 中的请求应该包含处理它所需的所有细节。它**不应该**依赖于以前或下一个请求或服务器端维护的一些数据，例如会话
-
-**REST 规范为使其无状态设置了一个约束，在设计 REST API 时，你应该记住这一点**
+REST API 中的请求应该包含处理它所需的所有细节。它**不应该**依赖于以前或下一个请求或服务器端维护的一些数据，例如会话。
 
 ## REST安全吗? 你能做什么来保护它
 
-安全是一个宽泛的术语。它可能意味着消息的安全性，这是通过认证和授权提供的加密或访问限制提供的
+安全是一个宽泛的术语。它可能意味着消息的安全性，这是通过认证和授权提供的加密或访问限制提供的。
 
-REST 通常不是安全的，需要开发人员自己实现安全机制
+REST 通常不是安全的，需要开发人员自己实现安全机制。
 
 ## 为什么要用SpringBoot
 
@@ -498,10 +494,10 @@ Starters包含了许多项目中需要用到的依赖，它们能快速持续的
 Spring Boot 在启动的时候会干这几件事情：
 
 * Spring Boot 在启动时会去依赖的 Starter 包中寻找 resources/META-INF/spring.factories 文件，然后根据文件中配置的 Jar 包去扫描项目所依赖的 Jar 包。
-* 根据 spring.factories 配置加载 AutoConfigure 类
-* 根据 @Conditional 注解的条件，进行自动配置并将 Bean 注入 Spring Context
+* 根据 spring.factories 配置加载 AutoConfigure 类。
+* 根据 @Conditional 注解的条件，进行自动配置并将 Bean 注入 Spring Context。
 
-总结一下，其实就是 Spring Boot 在启动的时候，按照约定去读取 Spring Boot Starter 的配置信息，再根据配置信息对资源进行初始化，并注入到 Spring 容器中。这样 Spring Boot 启动完毕后，就已经准备好了一切资源，使用过程中直接注入对应 Bean 资源即可
+总结一下，其实就是 Spring Boot 在启动的时候，按照约定去读取 Spring Boot Starter 的配置信息，再根据配置信息对资源进行初始化，并注入到 Spring 容器中。这样 Spring Boot 启动完毕后，就已经准备好了一切资源，使用过程中直接注入对应 Bean 资源即可。
 
 ## 保护 Spring Boot 应用有哪些方法
 
@@ -536,15 +532,15 @@ Spring ioc/aop > Spring > Spring Boot > Spring Cloud
 
 ## Mybaits的优缺点
 
-优点：
+优点
 
 * 基于SQL语句编程，相当灵活，不会对应用程序或者数据库的现有设计造成任何影响，SQL写在XML里，解除sql与程序代码的耦合，便于统一管理；提供XML标签，支持编写动态SQL语句，并可重用。
-* 与JDBC相比，减少了50%以上的代码量，消除了JDBC大量冗余的代码，不需要手动开关连接；
+* 与JDBC相比，减少了50%以上的代码量，消除了JDBC大量冗余的代码，不需要手动开关连接。
 * 很好的与各种数据库兼容（因为MyBatis使用JDBC来连接数据库，所以只要JDBC支持的数据库MyBatis都支持）。
-* 能够与Spring很好的集成；
+* 能够与Spring很好的集成。
 * 提供映射标签，支持对象与数据库的ORM字段关系映射；提供对象关系映射标签，支持对象关系组件维护。
 
-缺点：
+缺点
 
 * SQL语句的编写工作量较大，尤其当字段多、关联表多时，对开发人员编写SQL语句的功底有一定要求。
 * SQL语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。
@@ -575,13 +571,13 @@ Hibernate 对SQL语句封装，提供了日志、缓存、级联（级联比 MyB
 
 * 开发难易程度和学习成本
 
-Hibernate 是重量级框架，学习使用门槛高，适合于需求相对稳定，中小型的项目，比如：办公自动化系统
+Hibernate 是重量级框架，学习使用门槛高，适合于需求相对稳定，中小型的项目，比如：办公自动化系统。
 
-MyBatis 是轻量级框架，学习使用门槛低，适合于需求变化频繁，大型的项目，比如：互联网电子商务系统
+MyBatis 是轻量级框架，学习使用门槛低，适合于需求变化频繁，大型的项目，比如：互联网电子商务系统。
 
 **总结**
 
-MyBatis 是一个小巧、方便、高效、简单、直接、半自动化的持久层框架，
+MyBatis 是一个小巧、方便、高效、简单、直接、半自动化的持久层框架。
 
 Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的持久层框架。
 
@@ -607,10 +603,10 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 
 * #{}是占位符，预编译处理；${}是拼接符，字符串替换，没有预编译处理。
 * Mybatis在处理#{}时，#{}传入参数是以字符串传入，会将SQL中的#{}替换为?号，调用PreparedStatement的set方法来赋值。
-* Mybatis在处理时 ， 是 原 值 传 入 ， 就 是 把 {}时，是原值传入，就是把时，是原值传入，就是把{}替换成变量的值，相当于JDBC中的Statement编译
-* 变量替换后，#{} 对应的变量自动加上单引号 ‘’；变量替换后，${} 对应的变量不会加上单引号 ‘’
-* #{} 可以有效的防止SQL注入，提高系统安全性；${} 不能防止SQL 注入
-* #{} 的变量替换是在DBMS 中；${} 的变量替换是在 DBMS 外
+* Mybatis在处理时 ， 是 原 值 传 入 ， 就 是 把 {}时，是原值传入，就是把时，是原值传入，就是把{}替换成变量的值，相当于JDBC中的Statement编译。
+* 变量替换后，#{} 对应的变量自动加上单引号 ‘’；变量替换后，${} 对应的变量不会加上单引号 ‘’。
+* #{} 可以有效的防止SQL注入，提高系统安全性；${} 不能防止SQL 注入。
+* #{} 的变量替换是在DBMS 中；${} 的变量替换是在 DBMS 外。
 
 ## 通常一个Xml映射文件，都会写一个Dao接口与之对应，那么这个Dao接口的工作原理是什么。Dao接口里的方法、参数不同时，方法能重载吗
 
@@ -634,7 +630,7 @@ Mybatis提供了9种动态sql标签：trim、where、set、foreach、if、choose
 
 ## xml映射文件中，不同的xml映射文件id是否可以重复
 
-不同的xml映射文件，如果配置了namespace，那么id可以重复；如果没有配置namespace，那么id不能重复；
+不同的xml映射文件，如果配置了namespace，那么id可以重复；如果没有配置namespace，那么id不能重复。
 
 原因是namespace+id是作为Map<String,MapperStatement>的key使用的，如果没有namespace，就剩下id，那么id重复会导致数据互相覆盖。有了namespace，自然id就可以重复，namespace不同，namespace+id自然也不同。
 
@@ -642,7 +638,7 @@ Mybatis提供了9种动态sql标签：trim、where、set、foreach、if、choose
 
 有联合查询和嵌套查询两种方式。
 
-联合查询是几个表联合查询，通过在resultMap里面配置association节点配置一对一的类就可以完成；
+联合查询是几个表联合查询，通过在resultMap里面配置association节点配置一对一的类就可以完成。
 
 嵌套查询是先查一个表，根据这个表里面的结果的外键id，再去另外一个表里面查询数据，也是通过association配置，但另外一个表的查询是通过select配置的。
 
@@ -650,7 +646,7 @@ Mybatis提供了9种动态sql标签：trim、where、set、foreach、if、choose
 
 有联合查询和嵌套查询两种方式。
 
-联合查询是几个表联合查询，只查询一次，通过在resultMap里面的collection节点配置一对多的类就可以完成；
+联合查询是几个表联合查询，只查询一次，通过在resultMap里面的collection节点配置一对多的类就可以完成。
 
 嵌套查询是先查一个表，根据这个表里面的结果的外键id，再去另外一个表里面查询数据，也是通过collection，但另外一个表的查询是通过select配置的。
 
@@ -663,7 +659,7 @@ Mybatis提供了9种动态sql标签：trim、where、set、foreach、if、choose
 
 ## 使用MyBatis的Mapper接口调用时有哪些要求
 
-* Mapper接口方法名和mapper.xml中定义的每个sql的id相同；
-* Mapper接口方法的输入参数类型和mapper.xml中定义的每个sql的parameterType类型相同；
-* Mapper接口方法的输出参数类型和mapper.xml中定义的每个sql的resultType的类型相同；
+* Mapper接口方法名和mapper.xml中定义的每个sql的id相同。
+* Mapper接口方法的输入参数类型和mapper.xml中定义的每个sql的parameterType类型相同。
+* Mapper接口方法的输出参数类型和mapper.xml中定义的每个sql的resultType的类型相同。
 * Mapper.xml文件中的namespace即是mapper接口的类路径。
