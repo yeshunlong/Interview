@@ -48,10 +48,10 @@
 * 切换分支: ``git checkout test``
 * 创建并切换分支：``git checkout -b test``
 * 将test分支的更改合并到master分支：先在test分支上commit、push，再：``git checkout master``; ``git merge test``
+* 合并分支的两种命令（merge、rebase）区别：merge是一种非破坏性操作，现有分支不会以任何方式更改。rebase通过为原始分支中的每个提交创建全新的提交来重写项目历史。
 * 如果合并时产生冲突：先手动解决冲突，再合并
 * 删除分支：``git branch -d test``
 * ``git stash``
-
   * 如果当前分支还有任务没有做完，也不想提交，但此时需要切换或者创建其它分支，就可以使用stash将当前分支的所有修改（包括暂存区）先储藏起来；然后就可以切换到其它分支
   * 在其它分支工作完成之后，首先切换回原来的分支，然后使用 ``git stash list``命令查看
   * 可以使用 ``git stash apply <stash number>``恢复之前储藏的工作现场，再使用 ``git stash drop <stash number>``删除掉储藏的内容
