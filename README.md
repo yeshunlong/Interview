@@ -1,12 +1,14 @@
-# Interview Repo for JAVA development engineer
+# Java 后端开发 面试知识
 
-### Repo介绍
+### 介绍
 
 一个基础知识与面试问题相结合的Repo，包含JAVA开发及其相关技术栈的知识点和常见面试问题。
 
 帮助该方向的程序员 **快速** 建立基本印象，准备面试。
 
 全部文档长度约为 **8W** 字，全部阅读、理解并记忆约 **3-5天** 时间。
+
+更好的阅读体验：[Gitbook Link](https://yeshunlong.github.io/InterviewGitbook/)
 
 ### 包含知识点
 
