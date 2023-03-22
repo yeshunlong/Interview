@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Private data
+Project.md
